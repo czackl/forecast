@@ -116,6 +116,8 @@ async function loadWind(url) {
     forecastDate.setHours(forecastDate.getHours() + jsondata[0].header.forecastTime);
     console.log(forecastDate.toLocaleString());
 
+    document.querySelector("#forecast-date").innerHTML = `(<a href="${url}" target="met.no"> Stand: ${forecastDate.toLocaleString()}</a>)`;
+
 }
 
 loadWind("https://geographie.uibk.ac.at/data/ecmwf/data/wind-10u-10v-europe.json")
