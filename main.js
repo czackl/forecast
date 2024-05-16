@@ -75,4 +75,14 @@ async function showForecast(url) {
         }
     }).addTo(themaLayer.forecast);
 }
-showForecast("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=47.267222&lon=11.392778");
+//showForecast("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=47.267222&lon=11.392778");
+
+map.on("click", function (event) {
+    console.log("click", event.latlng);
+    let url = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${event.latlng.lat}&lon=${event.latlng.lng}`;
+    showForecast(url);
+});
+
+map.fire("click", {
+    latlng: ibk
+})
