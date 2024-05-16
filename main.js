@@ -37,5 +37,23 @@ async function showForecast(url) {
 
     // aktuelles Wetter und Wettervorhersage implementieren
     console.log(jsondata);
+
+    L.geoJSON(jsondata, {
+        pointToLayer: function (feature, latlng) {
+            let content = `
+                <ul>
+                    <li>Luftdruck Meereshöhe (hPa): air_pressure_at_sea_level</li>
+                    <li>Temperatur (°C): air_temperature</li>
+                    <li>Bewölkungsgrad (%): cloud_area_fraction</li>
+                    <li>Niederschlag (mm): precipitaiton_amount<li>
+                    <li>Luftfeuchtigkeit (%): relative_humidity</li>
+                    <li>Windrichtung (°): wind_from_direction</li>
+                    <li>Windgeschwindigkeit (km/h): wind_speed</li>
+                </ul>
+            `
+            return L.popup(latlng, { content: content })
+                .openOn(themaLayer.forecast);
+        }
+    }).addTo(themaLayer.forecast);
 }
 showForecast("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=47.267222&lon=11.392778");
